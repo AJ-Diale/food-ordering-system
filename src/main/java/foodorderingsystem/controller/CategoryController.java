@@ -50,4 +50,14 @@ public class CategoryController {
 
         return categoryService.updateCategory(id, dto);
     }
+
+    /*Deleting records by ID*/
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(
+            @PathVariable Long id) {
+
+        categoryService.deleteCategory(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }
