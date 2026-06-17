@@ -1,6 +1,8 @@
 package foodorderingsystem.service;
 
+import foodorderingsystem.dto.CategoryDto;
 import foodorderingsystem.entity.Category;
+import foodorderingsystem.exception.CategoryNotFoundException;
 import foodorderingsystem.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    /*Displaying record based on ID*/
+    @Override
+    public CategoryDto getCategoryById(Long id) {
+
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() ->
+                        new CategoryNotFoundException(
+                                "Category not found with id: " + id));
+
+        return new CategoryDto(
+                category.getId(),
+                category.getName());
     }
 }
