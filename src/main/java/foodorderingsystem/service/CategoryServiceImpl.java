@@ -36,6 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
                 category.getName());
     }
 
+    /*adding new record*/
     @Override
     public CategoryDto addCategory(CategoryDto dto) {
 
@@ -47,5 +48,18 @@ public class CategoryServiceImpl implements CategoryService {
         return new CategoryDto(
                 savedCategory.getId(),
                 savedCategory.getName());
+    }
+
+    /*Updating existing record*/
+    @Override
+    public CategoryDto updateCategory(Long id, CategoryDto dto) {
+
+        Category category = categoryRepository.findById(id).orElseThrow(() ->
+                        new CategoryNotFoundException("Category not found with id: " + id));
+
+        category.setName(dto.getName());
+        Category updatedCategory = categoryRepository.save(category);
+
+        return new CategoryDto(updatedCategory.getId(), updatedCategory.getName());
     }
 }

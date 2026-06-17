@@ -19,17 +19,18 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
+    /*Getting all Categories*/
     @GetMapping
     public List<Category> getAllCategories() {
         return categoryService.getAllCategories();
     }
 
+    /*Validating Input and adding new record*/
     @GetMapping("/{id}")
     public CategoryDto getCategoryById(@PathVariable Long id) {
         return categoryService.getCategoryById(id);
     }
-
+    /*Validating Input and adding new record*/
     @PostMapping
     public ResponseEntity<CategoryDto> addCategory(
             @RequestBody @Valid CategoryDto dto) {
@@ -40,5 +41,13 @@ public class CategoryController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdCategory);
+    }
+    /*Using the id endpoint to update existing records*/
+    @PutMapping("/{id}")
+    public CategoryDto updateCategory(
+            @PathVariable Long id,
+            @RequestBody @Valid CategoryDto dto) {
+
+        return categoryService.updateCategory(id, dto);
     }
 }
