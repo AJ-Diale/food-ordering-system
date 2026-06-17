@@ -10,4 +10,5 @@ public interface CategoryService {
 
     List<Category> getAllCategories();
     CategoryDto getCategoryById(Long id);
+    CategoryDto addCategory(CategoryDto dto);
 }

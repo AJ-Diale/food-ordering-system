@@ -35,4 +35,17 @@ public class CategoryServiceImpl implements CategoryService {
                 category.getId(),
                 category.getName());
     }
+
+    @Override
+    public CategoryDto addCategory(CategoryDto dto) {
+
+        Category category = new Category();
+        category.setName(dto.getName());
+
+        Category savedCategory = categoryRepository.save(category);
+
+        return new CategoryDto(
+                savedCategory.getId(),
+                savedCategory.getName());
+    }
 }
