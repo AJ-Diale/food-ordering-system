@@ -1,10 +1,20 @@
 package foodorderingsystem.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 /*Used to transfer data between layers*/
 public class CategoryDto {
 
     private Long id;
     private String name;
+
+    /*Adding validation for new records*/
+    @NotBlank(message = "Category name is required")
+    @Size(
+            min = 2,
+            max = 50,
+            message = "Name must be 2-50 characters")
 
     public CategoryDto() {
     }
