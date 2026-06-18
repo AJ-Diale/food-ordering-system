@@ -10,7 +10,19 @@
       "name": "GetAllCategories",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/categories",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8085",
+          "path": [
+            "api",
+            "categories"
+          ]
+        }
       },
       "response": []
     },
@@ -18,7 +30,20 @@
       "name": "GetCategoriesByID",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/categories/999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8085",
+          "path": [
+            "api",
+            "categories",
+            "999"
+          ]
+        }
       },
       "response": []
     },
@@ -29,7 +54,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"name\": \"Snack\"\r\n}",
+          "raw": "{\r\n    \"name\": \"A\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -37,7 +62,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8085/api/category",
+          "raw": "http://localhost:8085/api/categories",
           "protocol": "http",
           "host": [
             "localhost"
@@ -45,7 +70,7 @@
           "port": "8085",
           "path": [
             "api",
-            "category"
+            "categories"
           ]
         }
       },
@@ -58,7 +83,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"name\": \"Snacks\"\r\n}",
+          "raw": "{\r\n    \"name\": \"Drinks\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -66,7 +91,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8085/api/category/5",
+          "raw": "http://localhost:8085/api/categories/12",
           "protocol": "http",
           "host": [
             "localhost"
@@ -74,8 +99,8 @@
           "port": "8085",
           "path": [
             "api",
-            "category",
-            "5"
+            "categories",
+            "12"
           ]
         }
       },
@@ -87,7 +112,7 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "http://localhost:8085/api/category/6",
+          "raw": "http://localhost:8085/api/categories/12",
           "protocol": "http",
           "host": [
             "localhost"
@@ -95,8 +120,8 @@
           "port": "8085",
           "path": [
             "api",
-            "category",
-            "6"
+            "categories",
+            "12"
           ]
         }
       },
