@@ -17,12 +17,23 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
+    /*
+     * Retrieve all categories and convert entities to DTOs.
+     */
     @Override
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryDto> getAllCategories() {
+
+        return categoryRepository.findAll()
+                .stream()
+                .map(category -> new CategoryDto(
+                        category.getId(),
+                        category.getName()))
+                .toList();
     }
 
-    /*Displaying record based on ID*/
+    /*
+     * Retrieve category by ID.
+     */
     @Override
     public CategoryDto getCategoryById(Long id) {
 
@@ -36,7 +47,9 @@ public class CategoryServiceImpl implements CategoryService {
                 category.getName());
     }
 
-    /*adding new record*/
+    /*
+     * Create a new category.
+     */
     @Override
     public CategoryDto addCategory(CategoryDto dto) {
 
@@ -50,24 +63,36 @@ public class CategoryServiceImpl implements CategoryService {
                 savedCategory.getName());
     }
 
-    /*Updating existing record*/
+    /*
+     * Update an existing category.
+     */
     @Override
     public CategoryDto updateCategory(Long id, CategoryDto dto) {
 
-        Category category = categoryRepository.findById(id).orElseThrow(() ->
-                        new CategoryNotFoundException("Category not found with id: " + id));
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() ->
+                        new CategoryNotFoundException(
+                                "Category not found with id: " + id));
 
         category.setName(dto.getName());
+
         Category updatedCategory = categoryRepository.save(category);
 
-        return new CategoryDto(updatedCategory.getId(), updatedCategory.getName());
+        return new CategoryDto(
+                updatedCategory.getId(),
+                updatedCategory.getName());
     }
 
+    /*
+     * Delete category by ID.
+     */
     @Override
     public void deleteCategory(Long id) {
 
-        Category category = categoryRepository.findById(id).orElseThrow(() ->
-                        new CategoryNotFoundException("Category not found with id: " + id));
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() ->
+                        new CategoryNotFoundException(
+                                "Category not found with id: " + id));
 
         categoryRepository.delete(category);
     }

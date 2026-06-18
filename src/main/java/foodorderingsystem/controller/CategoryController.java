@@ -1,7 +1,7 @@
 package foodorderingsystem.controller;
 
 import foodorderingsystem.dto.CategoryDto;
-import foodorderingsystem.entity.Category;
+import foodorderingsystem.response.ApiResponse;
 import foodorderingsystem.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
+ * Handles HTTP requests for Category operations.
+ */
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -19,46 +22,102 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-    /*Getting all Categories*/
+
+    /*
+     * GET ALL
+     */
     @GetMapping
-    public List<Category> getAllCategories() {
-        return categoryService.getAllCategories();
+    public ResponseEntity<ApiResponse<List<CategoryDto>>> getAllCategories() {
+
+        List<CategoryDto> categories =
+                categoryService.getAllCategories();
+
+        ApiResponse<List<CategoryDto>> response =
+                new ApiResponse<>(
+                        200,
+                        "Categories retrieved successfully",
+                        categories);
+
+        return ResponseEntity.ok(response);
     }
 
-    /*Validating Input and adding new record*/
+    /*
+     * GET BY ID
+     */
     @GetMapping("/{id}")
-    public CategoryDto getCategoryById(@PathVariable Long id) {
-        return categoryService.getCategoryById(id);
+    public ResponseEntity<ApiResponse<CategoryDto>> getCategoryById(
+            @PathVariable Long id) {
+
+        CategoryDto category =
+                categoryService.getCategoryById(id);
+
+        ApiResponse<CategoryDto> response =
+                new ApiResponse<>(
+                        200,
+                        "Category found",
+                        category);
+
+        return ResponseEntity.ok(response);
     }
 
-    /*Validating Input and adding new record*/
+    /*
+     * CREATE
+     */
     @PostMapping
-    public ResponseEntity<CategoryDto> addCategory(
+    public ResponseEntity<ApiResponse<CategoryDto>> addCategory(
             @RequestBody @Valid CategoryDto dto) {
 
-        CategoryDto createdCategory =
+        CategoryDto category =
                 categoryService.addCategory(dto);
+
+        ApiResponse<CategoryDto> response =
+                new ApiResponse<>(
+                        201,
+                        "Category created successfully",
+                        category);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(createdCategory);
+                .body(response);
     }
-    /*Using the id endpoint to update existing records*/
+
+    /*
+     * UPDATE
+     */
     @PutMapping("/{id}")
-    public CategoryDto updateCategory(
+    public ResponseEntity<ApiResponse<CategoryDto>> updateCategory(
             @PathVariable Long id,
             @RequestBody @Valid CategoryDto dto) {
 
-        return categoryService.updateCategory(id, dto);
+        CategoryDto category =
+                categoryService.updateCategory(id, dto);
+
+        ApiResponse<CategoryDto> response =
+                new ApiResponse<>(
+                        200,
+                        "Category updated successfully",
+                        category);
+
+        return ResponseEntity.ok(response);
     }
 
-    /*Deleting records by ID*/
+    /*
+     * DELETE
+     */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(
+    public ResponseEntity<ApiResponse<Object>> deleteCategory(
             @PathVariable Long id) {
 
         categoryService.deleteCategory(id);
 
-        return ResponseEntity.noContent().build();
+        ApiResponse<Object> response =
+                new ApiResponse<>(
+                        204,
+                        "Category deleted successfully",
+                        null);
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(response);
     }
 }
