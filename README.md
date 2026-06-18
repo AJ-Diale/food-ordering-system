@@ -53,3 +53,15 @@ This package is used for custom Spring configuration, security setup, database c
 
 7.Exception
 Holds all the exceptions and error handling logic
+
+====================================================
+ENDPOINTS
+====================================================
+
+  | Method | URL                       | Body         |
+  |--------|---------------------------|--------------|
+  | POST   | /api/categories           | { "name" }   |
+  | GET    | /api/categories           | -            |
+  | GET    | /api/categories/{id}      | -            |
+  | PUT    | /api/categories/{id}      | { "name" }   |
+  | DELETE | /api/categories/{id}      | -            |
