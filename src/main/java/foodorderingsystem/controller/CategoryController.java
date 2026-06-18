@@ -30,6 +30,7 @@ public class CategoryController {
     public CategoryDto getCategoryById(@PathVariable Long id) {
         return categoryService.getCategoryById(id);
     }
+
     /*Validating Input and adding new record*/
     @PostMapping
     public ResponseEntity<CategoryDto> addCategory(
