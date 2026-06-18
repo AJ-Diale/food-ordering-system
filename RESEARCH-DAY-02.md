@@ -22,6 +22,4 @@ It tells SpringBoot to exclude values that have a null value.
   Q7. What is a static factory method? Why use Response.success(...) instead of new Response<>()?
 A static factory method is a static method that creates and returns an object.
 
-========================================================================
-2. CONCEPTS TO RESEARCH (60 minutes)
-=========================================================================
+
