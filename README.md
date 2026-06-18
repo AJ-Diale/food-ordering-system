@@ -65,3 +65,18 @@ ENDPOINTS
   | GET    | /api/categories/{id}      | -            |
   | PUT    | /api/categories/{id}      | { "name" }   |
   | DELETE | /api/categories/{id}      | -            |
+
+=======================================================
+API RESPONSE FORMAT
+=======================================================
+
+{
+    "statusCode": 200,
+    "message": "Category found",
+    "data": {
+        "id": 1,
+        "name": "Vegetarian",
+        "description": "Healthy, rich in vitamins"
+    },
+    "timestamp": "2026-06-18T14:58:41.1197954"
+}
