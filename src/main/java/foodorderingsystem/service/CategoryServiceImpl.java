@@ -27,7 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
                 .stream()
                 .map(category -> new CategoryDto(
                         category.getId(),
-                        category.getName()))
+                        category.getName(),
+                        category.getDescription()))
                 .toList();
     }
 
@@ -44,7 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
 
         return new CategoryDto(
                 category.getId(),
-                category.getName());
+                category.getName(),
+                category.getDescription());
     }
 
     /*
@@ -55,12 +57,14 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = new Category();
         category.setName(dto.getName());
+        category.setDescription(dto.getDescription());
 
         Category savedCategory = categoryRepository.save(category);
 
         return new CategoryDto(
                 savedCategory.getId(),
-                savedCategory.getName());
+                savedCategory.getName(),
+                savedCategory.getDescription());
     }
 
     /*
@@ -75,12 +79,14 @@ public class CategoryServiceImpl implements CategoryService {
                                 "Category not found with id: " + id));
 
         category.setName(dto.getName());
+        category.setDescription(dto.getDescription());
 
         Category updatedCategory = categoryRepository.save(category);
 
         return new CategoryDto(
                 updatedCategory.getId(),
-                updatedCategory.getName());
+                updatedCategory.getName(),
+                updatedCategory.getDescription());
     }
 
     /*

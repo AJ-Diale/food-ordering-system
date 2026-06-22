@@ -1,0 +1,59 @@
+{
+  "info": {
+    "_postman_id": "66c8e800-87d8-49dd-8645-bdbee5356afa",
+    "name": "Menu",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45883845"
+  },
+  "item": [
+    {
+      "name": "GetMenu",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/menu",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8085",
+          "path": [
+            "api",
+            "menu"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetMenuItem",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/menu/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8085",
+          "path": [
+            "api",
+            "menu",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PostMenuItem",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}

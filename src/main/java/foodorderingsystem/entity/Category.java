@@ -13,20 +13,20 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
+    private String description;
+
 
     public Category() {
     }
 
-    public Category(Long id, String name) {
+    public Category(Long id, String name, String description) {
         this.id = id;
         this.name = name;
+        this.description = description;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
 
     public void setId(Long id) {
         this.id = id;
@@ -40,4 +40,11 @@ public class Category {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

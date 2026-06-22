@@ -46,4 +46,15 @@ public class GlobalExceptionHandler {
                 .badRequest()
                 .body(response);
     }
+
+    @ExceptionHandler(MenuNotFoundException.class)
+    public ResponseEntity<ApiResponse<Object>> handleMenuNotFound(
+            MenuNotFoundException ex) {
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ApiResponse<>(
+                        404,
+                        ex.getMessage(),
+                        null));
+    }
 }
