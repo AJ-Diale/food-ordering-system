@@ -4,6 +4,7 @@ import foodorderingsystem.dto.MenuDto;
 import foodorderingsystem.entity.Category;
 import foodorderingsystem.entity.Menu;
 import foodorderingsystem.exception.CategoryNotFoundException;
+import foodorderingsystem.exception.MenuNotFoundException;
 import foodorderingsystem.response.ApiResponse;
 import foodorderingsystem.repository.CategoryRepository;
 import foodorderingsystem.repository.MenuRepository;
@@ -57,7 +58,7 @@ public class MenuServiceImpl implements MenuService {
 
         Menu menu = menuRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException(
+                        new MenuNotFoundException(
                                 "Menu not found with id: " + id));
 
         return new ApiResponse<>(
