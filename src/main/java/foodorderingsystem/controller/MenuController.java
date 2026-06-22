@@ -39,4 +39,13 @@ public class MenuController {
         return ResponseEntity.ok(
                 menuService.getMenuById(id));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<MenuDto>> update(
+            @PathVariable Long id,
+            @RequestBody @Valid MenuDto dto) {
+
+        return ResponseEntity.ok(
+                menuService.updateMenu(id, dto));
+    }
 }
