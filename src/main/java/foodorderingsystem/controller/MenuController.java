@@ -48,4 +48,13 @@ public class MenuController {
         return ResponseEntity.ok(
                 menuService.updateMenu(id, dto));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> delete(
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                menuService.deleteMenu(id));
+    }
+
 }
