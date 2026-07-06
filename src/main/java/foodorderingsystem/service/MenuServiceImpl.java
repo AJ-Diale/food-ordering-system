@@ -10,7 +10,6 @@ import foodorderingsystem.repository.CategoryRepository;
 import foodorderingsystem.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.PredicateSpecification;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -66,7 +65,7 @@ public class MenuServiceImpl implements MenuService {
                 size,
                 Sort.by(direction, sortParts[0]));
 
-        Specification<Menu> specification = Specification.where((PredicateSpecification<Menu>) null);
+        Specification<Menu> specification = (root, query, cb) -> cb.conjunction();
 
         if (categoryId != null) {
             specification = specification.and(
