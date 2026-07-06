@@ -1,6 +1,7 @@
 package foodorderingsystem.exception;
 
 import foodorderingsystem.response.ApiResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -56,5 +57,17 @@ public class GlobalExceptionHandler {
                         404,
                         ex.getMessage(),
                         null));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiResponse<Object>> handleDataIntegrity(
+            DataIntegrityViolationException ex) {
+
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ApiResponse<>(
+                        409,
+                        "Cannot delete category because it has menu items.",
+                        null
+                ));
     }
 }
