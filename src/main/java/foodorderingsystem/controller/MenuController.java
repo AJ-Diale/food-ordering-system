@@ -5,6 +5,8 @@ import foodorderingsystem.response.ApiResponse;
 import foodorderingsystem.service.MenuService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +28,21 @@ public class MenuController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<MenuDto>>> all() {
+    public ResponseEntity<ApiResponse<Page<MenuDto>>> all(
+
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id,asc") String sort) {
 
         return ResponseEntity.ok(
-                menuService.getAllMenus());
+                menuService.getMenus(
+                        categoryId,
+                        search,
+                        page,
+                        size,
+                        sort));
     }
 
     @GetMapping("/{id}")
