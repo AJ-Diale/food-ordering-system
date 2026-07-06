@@ -9,6 +9,7 @@ import foodorderingsystem.response.ApiResponse;
 import foodorderingsystem.repository.CategoryRepository;
 import foodorderingsystem.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +41,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public ApiResponse<Page<MenuDto>> getMenus(Long categoryId, String search, int page, int size, String sort) {
+        return null;
+    }
+
+    @Override
     public ApiResponse<List<MenuDto>> getAllMenus() {
 
         List<MenuDto> menus = menuRepository.findAll()
@@ -65,6 +71,16 @@ public class MenuServiceImpl implements MenuService {
                 200,
                 "Menu found",
                 mapToDto(menu));
+    }
+
+    @Override
+    public ApiResponse<MenuDto> updateMenu(Long id, MenuDto dto) {
+        return null;
+    }
+
+    @Override
+    public ApiResponse<Void> deleteMenu(Long id) {
+        return null;
     }
 
     private MenuDto mapToDto(Menu menu) {

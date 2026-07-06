@@ -22,4 +22,7 @@ public interface MenuService {
     ApiResponse<MenuDto> updateMenu(Long id, MenuDto dto);
 
     ApiResponse<Void> deleteMenu(Long id);
+
+
+    ApiResponse<List<MenuDto>> getAllMenus();
 }
