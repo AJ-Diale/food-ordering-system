@@ -1,10 +1,10 @@
 package foodorderingsystem.response;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
-/*
- * Standard API response wrapper used by all endpoints.
- */
+@Data
 public class ApiResponse<T> {
 
     private int statusCode;
@@ -16,45 +16,18 @@ public class ApiResponse<T> {
         this.timestamp = LocalDateTime.now();
     }
 
-    public ApiResponse(int statusCode,
-                       String message,
-                       T data) {
-
+    public ApiResponse(int statusCode, String message, T data) {
         this.statusCode = statusCode;
         this.message = message;
         this.data = data;
         this.timestamp = LocalDateTime.now();
     }
 
-    public int getStatusCode() {
-        return statusCode;
+    public static <T> ApiResponse<T> success(String message, T data) {
+        return new ApiResponse<>(200, message, data);
     }
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public static <T> ApiResponse<T> error(String message) {
+        return new ApiResponse<>(500, message, null);
     }
 }
