@@ -9,7 +9,10 @@ import foodorderingsystem.response.ApiResponse;
 import foodorderingsystem.repository.CategoryRepository;
 import foodorderingsystem.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -40,6 +43,56 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public ApiResponse<Page<MenuDto>> getMenus(
+            Long categoryId,
+            String search,
+            int page,
+            int size,
+            String sort) {
+
+        String[] sortParts = sort.split(",");
+
+        Sort.Direction direction = Sort.Direction.ASC;
+
+        if (sortParts.length > 1 &&
+                sortParts[1].equalsIgnoreCase("desc")) {
+
+            direction = Sort.Direction.DESC;
+        }
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(direction, sortParts[0]));
+
+        Specification<Menu> specification = (root, query, cb) -> cb.conjunction();
+
+        if (categoryId != null) {
+            specification = specification.and(
+                    (root, query, cb) ->
+                            cb.equal(root.get("category").get("id"), categoryId));
+        }
+
+        if (search != null && !search.isBlank()) {
+
+            specification = specification.and(
+                    (root, query, cb) ->
+                            cb.like(
+                                    cb.lower(root.get("name")),
+                                    "%" + search.toLowerCase() + "%"));
+        }
+
+        Page<MenuDto> menuPage = menuRepository
+                .findAll(specification, pageable)
+                .map(this::mapToDto);
+
+        return new ApiResponse<>(
+                200,
+                "Menus retrieved successfully",
+                menuPage);
+    }
+
+    @Override
     public ApiResponse<List<MenuDto>> getAllMenus() {
 
         List<MenuDto> menus = menuRepository.findAll()
@@ -65,6 +118,52 @@ public class MenuServiceImpl implements MenuService {
                 200,
                 "Menu found",
                 mapToDto(menu));
+    }
+
+    @Override
+    public ApiResponse<MenuDto> updateMenu(
+            Long id,
+            MenuDto dto) {
+
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() ->
+                        new MenuNotFoundException(
+                                "Menu not found with id: " + id));
+
+        Category category = categoryRepository.findById(dto.getCategoryId())
+                .orElseThrow(() ->
+                        new CategoryNotFoundException(
+                                "Category not found with id: "
+                                        + dto.getCategoryId()));
+
+        menu.setName(dto.getName());
+        menu.setDescription(dto.getDescription());
+        menu.setPrice(dto.getPrice());
+        menu.setImageUrl(dto.getImageUrl());
+        menu.setCategory(category);
+
+        Menu updatedMenu = menuRepository.save(menu);
+
+        return new ApiResponse<>(
+                200,
+                "Menu updated successfully",
+                mapToDto(updatedMenu));
+    }
+
+    @Override
+    public ApiResponse<Void> deleteMenu(Long id) {
+
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() ->
+                        new MenuNotFoundException(
+                                "Menu not found with id: " + id));
+
+        menuRepository.delete(menu);
+
+        return new ApiResponse<>(
+                200,
+                "Menu deleted successfully",
+                null);
     }
 
     private MenuDto mapToDto(Menu menu) {
